@@ -48,6 +48,12 @@ func Cover(ctx context.Context) error {
 	return zmage.Cover()
 }
 
+// Deploy pushes the docker image with the proper tag
+func Deploy(ctx context.Context) error {
+	mg.CtxDeps(ctx, Image)
+	return zmage.PushImage(DockerImage)
+}
+
 // Dep ensures `Gopkg.lock` and `vendor/` in sync with `Gopkg.toml`
 func Dep(ctx context.Context) error {
 	return zmage.Dep(ctx)
