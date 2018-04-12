@@ -54,13 +54,13 @@ func (c Config) PFlagSet(prefix string) *pflag.FlagSet {
 	fs.StringP(prefix+".url", "u", c.URL, "the sub url")
 
 	fs.DurationP(prefix+".ttl", "t", c.TTL, "the sub ttl")
-	fs.MarkShorthandDeprecated(prefix+".ttl", "please use --"+prefix+".ttl only") // #nosec
+	_ = fs.MarkShorthandDeprecated(prefix+".ttl", "please use --"+prefix+".ttl only") // #nosec
 
 	fs.BoolP(prefix+".bool0", "b", c.Bool0, "sub bool 0")
-	fs.MarkDeprecated(prefix+".bool0", "use "+prefix+".bool2 instead") // #nosec
+	_ = fs.MarkDeprecated(prefix+".bool0", "use "+prefix+".bool2 instead") // #nosec
 
 	fs.BoolP(prefix+".bool1", "o", c.Bool1, "sub bool 1")
-	fs.MarkHidden(prefix + ".bool1") // #nosec
+	_ = fs.MarkHidden(prefix + ".bool1") // #nosec
 
 	fs.BoolP(prefix+".bool2", "l", c.Bool2, "sub bool 2")
 

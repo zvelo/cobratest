@@ -48,6 +48,11 @@ func Cover(ctx context.Context) error {
 	return zmage.Cover()
 }
 
+// Fmt ensures that all go files are properly formatted
+func Fmt(ctx context.Context) error {
+	return zmage.GoFmt()
+}
+
 // Deploy pushes the docker image with the proper tag
 func Deploy(ctx context.Context) error {
 	mg.CtxDeps(ctx, Image)
@@ -69,6 +74,11 @@ func Cobratest(ctx context.Context) error {
 func Install(ctx context.Context) error {
 	mg.CtxDeps(ctx, Dep)
 	return zmage.Install(build.Default, ExeDir)
+}
+
+// Lint runs `gometalinter`
+func Lint(ctx context.Context) error {
+	return zmage.GoLint(ctx)
 }
 
 // GoVet runs `go vet`
