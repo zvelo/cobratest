@@ -10,10 +10,12 @@ import (
 	"github.com/spf13/viper"
 )
 
+const name = "cobratest"
+
 // rootCmd is the _only_ global variable and it must be so that other commands
 // can use rootCmd.AddCommand in their init() funcs
 var rootCmd = cobra.Command{
-	Use:   "cobratest",
+	Use:   name,
 	Short: "example app",
 }
 

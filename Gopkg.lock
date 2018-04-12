@@ -66,6 +66,12 @@
   version = "v1.1.0"
 
 [[projects]]
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
   name = "github.com/spf13/afero"
   packages = [
     ".",
@@ -138,6 +144,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8b7c302abf188db3b3d321dfca13559108b1e440590957717ad3a965e9398724"
+  inputs-digest = "fcebad64fa9a91bd8629bc71cbd3a91775b1b7329a395673884a63ca2047f1b9"
   solver-name = "gps-cdcl"
   solver-version = 1
