@@ -40,11 +40,17 @@ func init() {
 	// field for viper.Unmarshal to work. alternatively, the mapstructure struct
 	// "tag" must match the flag name in which case the struct field name can be
 	// anything you want. github.com/mitchellh/mapstructure
-	cmd.Flags().String("addr", f.Addr, "listening address")
+	// also note that the Var varients (e.g. StringVar) aren't particularly
+	// helpful as, even if they set the destination properly, the value isn't
+	// processed by viper. just stick with the viper.Unmarshal instead.
+	cmd.Flags().StringP("addr", "a", f.Addr, "listening address")
 
 	// add flags exported by the subpackage. the prefix must match the struct
 	// field name, or the mapstructure struct tag
-	cmd.Flags().AddGoFlagSet(f.Sub.FlagSet("sub"))
+	// cmd.Flags().AddGoFlagSet(f.Sub.FlagSet("sub"))
+	cmd.Flags().AddFlagSet(f.Sub.PFlagSet("sub"))
+
+	// cmd.MarkFlagRequired("sub.url")
 
 	// this is how we tell viper what the configuration keys are
 	if err := viper.BindPFlags(cmd.Flags()); err != nil {

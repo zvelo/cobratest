@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"time"
+
+	"github.com/spf13/pflag"
 )
 
 const (
@@ -16,8 +18,9 @@ const (
 
 // Config configures Sub
 type Config struct {
-	URL string
-	TTL time.Duration
+	URL                 string
+	TTL                 time.Duration
+	Bool0, Bool1, Bool2 bool
 }
 
 // DefaultConfig returns a Config set to default values
@@ -35,6 +38,31 @@ func (c Config) FlagSet(prefix string) *flag.FlagSet {
 
 	fs.String(prefix+".url", c.URL, "the sub url")
 	fs.Duration(prefix+".ttl", c.TTL, "the sub ttl")
+	fs.Bool(prefix+".bool0", c.Bool0, "sub bool 0")
+	fs.Bool(prefix+".bool1", c.Bool1, "sub bool 1")
+	fs.Bool(prefix+".bool2", c.Bool2, "sub bool 2")
+
+	return fs
+}
+
+// PFlagSet returns the flags that can be used to configure Sub with defaults
+// taken from c
+// pflag is much more featureful than the standard go "flag" package
+func (c Config) PFlagSet(prefix string) *pflag.FlagSet {
+	fs := pflag.NewFlagSet("sub", pflag.ContinueOnError)
+
+	fs.StringP(prefix+".url", "u", c.URL, "the sub url")
+
+	fs.DurationP(prefix+".ttl", "t", c.TTL, "the sub ttl")
+	fs.MarkShorthandDeprecated(prefix+".ttl", "please use --"+prefix+".ttl only") // #nosec
+
+	fs.BoolP(prefix+".bool0", "b", c.Bool0, "sub bool 0")
+	fs.MarkDeprecated(prefix+".bool0", "use "+prefix+".bool2 instead") // #nosec
+
+	fs.BoolP(prefix+".bool1", "o", c.Bool1, "sub bool 1")
+	fs.MarkHidden(prefix + ".bool1") // #nosec
+
+	fs.BoolP(prefix+".bool2", "l", c.Bool2, "sub bool 2")
 
 	return fs
 }
@@ -69,4 +97,7 @@ func New(opts ...Option) *Sub {
 func (s *Sub) Do() {
 	fmt.Println("sub.url:", s.Config.URL)
 	fmt.Println("sub.ttl:", s.Config.TTL)
+	fmt.Println("sub.bool0:", s.Config.Bool0)
+	fmt.Println("sub.bool1:", s.Config.Bool1)
+	fmt.Println("sub.bool2:", s.Config.Bool2)
 }
