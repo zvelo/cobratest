@@ -26,6 +26,21 @@ func Build(ctx context.Context) error {
 	return nil
 }
 
+// Test runs `go vet` and `go test -race` on all packages in the repository
+func Test(ctx context.Context) error {
+	return zmage.GoTest(ctx)
+}
+
+// CoverOnly calculates test coverage for all packages in the repository
+func CoverOnly(ctx context.Context) error {
+	return zmage.CoverOnly()
+}
+
+// Cover runs CoverOnly and opens the results in the browser
+func Cover(ctx context.Context) error {
+	return zmage.Cover()
+}
+
 // Dep ensures `Gopkg.lock` and `vendor/` in sync with `Gopkg.toml`
 func Dep(ctx context.Context) error {
 	return zmage.Dep(ctx)
