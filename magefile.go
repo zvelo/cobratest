@@ -13,6 +13,8 @@ import (
 )
 
 const (
+	DockerImage = "zvelo/cobratest"
+	Dockerfile  = "./Dockerfile"
 	Exe         = "./cobratest"
 	ExeDir      = "./cmd/cobratest"
 )
@@ -24,6 +26,11 @@ var Default = Build
 func Build(ctx context.Context) error {
 	mg.CtxDeps(ctx, Cobratest)
 	return nil
+}
+
+// Image builds the docker image
+func Image(ctx context.Context) error {
+	return zmage.BuildImage(DockerImage, Dockerfile, ".")
 }
 
 // Test runs `go vet` and `go test -race` on all packages in the repository
