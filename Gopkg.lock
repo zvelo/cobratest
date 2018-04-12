@@ -138,12 +138,12 @@
 [[projects]]
   name = "zvelo.io/zmage"
   packages = ["."]
-  revision = "bd14e610f56c0aedd0b6691be3fbda4198c2c0f8"
-  version = "v3.2.1"
+  revision = "a60a30727820bd07ddb4d1437a99461003eba7c9"
+  version = "v3.2.2"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "426ab27abb9b6a17625f4f72efcce7e814119565acd19beadc7d4db92fbb54b8"
+  inputs-digest = "94ebd55271efed8aaef3c7e5b4c5ab1b961996e8103a5cc7f2275c8239f3adac"
   solver-name = "gps-cdcl"
   solver-version = 1
