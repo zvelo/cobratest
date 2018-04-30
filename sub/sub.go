@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/spf13/pflag"
+	"zvelo.io/cobratest/lib"
 )
 
 const (
@@ -21,6 +22,7 @@ type Config struct {
 	URL                 string
 	TTL                 time.Duration
 	Bool0, Bool1, Bool2 bool
+	Lib                 *lib.Lib
 }
 
 // DefaultConfig returns a Config set to default values
@@ -28,6 +30,7 @@ func DefaultConfig() *Config {
 	return &Config{
 		URL: DefaultURL,
 		TTL: DefaultTTL,
+		Lib: lib.New(),
 	}
 }
 
@@ -63,6 +66,7 @@ func (c Config) PFlagSet(prefix string) *pflag.FlagSet {
 	_ = fs.MarkHidden(prefix + ".bool1") // #nosec
 
 	fs.BoolP(prefix+".bool2", "l", c.Bool2, "sub bool 2")
+	fs.AddFlagSet(c.Lib.Flags())
 
 	return fs
 }
@@ -100,4 +104,5 @@ func (s *Sub) Do() {
 	fmt.Println("sub.bool0:", s.Config.Bool0)
 	fmt.Println("sub.bool1:", s.Config.Bool1)
 	fmt.Println("sub.bool2:", s.Config.Bool2)
+	fmt.Println("lib.test:", s.Config.Lib.Test)
 }
